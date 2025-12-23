@@ -1,28 +1,28 @@
-#ifndef EXT2_H
-#define EXT2_H
+#include "ext2.h"
+#include <iostream>
 
-#include <cstdint>
-#include <string>
-#include <fstream>
+Ext2::Ext2(const std::string& image) {
+    disk.open(image, std::ios::binary);
+    if (!disk) {
+        std::cerr << "Failed to open image\n";
+        exit(1);
+    }
+    readSuperblock();
+}
 
-struct Superblock {
-    uint32_t inodes_count;
-    uint32_t blocks_count;
-    uint32_t log_block_size;
-};
+void Ext2::readSuperblock() {
+    disk.seekg(1024); // superblock offset
+    disk.read(reinterpret_cast<char*>(&sb), sizeof(Superblock));
+    blockSize = 1024 << sb.log_block_size;
+}
 
-class Ext2 {
-private:
-    std::ifstream disk;
-    Superblock sb;
-    uint32_t blockSize;
+void Ext2::printSuperblock() {
+    std::cout << "Inodes: " << sb.inodes_count << "\n";
+    std::cout << "Blocks: " << sb.blocks_count << "\n";
+    std::cout << "Block size: " << blockSize << " bytes\n";
+}
 
-public:
-    Ext2(const std::string& image);
-    void readSuperblock();
-    void printSuperblock();
-    void listRoot();
-};
-
-#endif
-
+void Ext2::listRoot() {
+    std::cout << "[Root directory listing simulated]\n";
+    std::cout << ".\n..\nfile1\nfile2\n";
+}
