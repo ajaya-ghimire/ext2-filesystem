@@ -1,3 +1,2 @@
 all:
-	g++ -std=c++17 main.cpp ext2.cpp -o ext2
-
+	g++ -std=c++17 main.cpp vdi.cpp ext2.cpp -o ext2vdi
