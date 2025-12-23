@@ -1,5 +1,5 @@
-### Ext2 File System (C++)
-- Implemented a basic ext2 filesystem reader in C++
-- Parsed superblock and computed block size
-- Demonstrated inode and directory structure handling
-- Focused on low-level filesystem layout and binary parsing
+### Ext2 File System with VDI Support (C++)
+- Implemented a VirtualBox VDI parser in C++
+- Located raw disk data using VDI headers
+- Parsed ext2 superblock and computed filesystem block size
+- Demonstrated low-level disk and filesystem structure handling
